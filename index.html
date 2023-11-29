@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="author" content="David Shao" />
+		<meta name="description" content="Conway's Game of Life Project" />
+
+        <title>Conway's Game of Life</title>
+        <link href="./styles.css" type="text/css" rel="stylesheet" />
+
+        <!-- Favicon: "grid" by faisalovers from the Noun Project, https://thenounproject.com/search/?q=grid&i=1581533 -->
+        <link href="./favicon.png" rel="shortcut icon" />
+
+        <!-- Library: SweetAlert, https://sweetalert.js.org/ — Source: https://unpkg.com/sweetalert/dist/sweetalert.min.js -->
+        <script type="text/javascript" src="./sweetalert.min.js"></script>
+
+        <script type="text/javascript" src="./main.js"></script>
+    </head>
+    <body>
+        <h1>John Conway's Game of Life</h1>
+        <div class="wrap">
+            <input id="rows" name="rows" placeholder="Rows" type="number" min="1">
+        </div>
+        <div class="wrap">
+            <input id="cols" name="cols" placeholder="Columns" type="number" min="1">
+        </div>
+        <div class="wrap">
+            <input id="gens" name="gens" placeholder="Generations (opt.)" type="number" min="1">
+        </div>
+        <div class="wrap">
+            <input id="timeInterval" name="timeInterval" placeholder="Time Interval (in ms, opt.)" type="number" min="10">
+        </div>
+        <div class="wrap">
+            <label for="colorAlive">Living Cells:</label>
+            <input id="colorAlive" name="colorAlive" type="color" value="#000000">
+        </div>
+        <div class="wrap">
+            <label for="colorDead">Dead Cells:</label>
+            <input id="colorDead" name="colorDead" type="color" value="#ffffff">
+        </div>
+        <div class="wrap" id="button">
+            <button id="continue">Continue</button>
+        </div>
+    </body>
+</html>

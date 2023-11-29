@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="author" content="David Shao" />
+        <meta name="description" content="Strings Assignment: Rule 90 Cellular Automaton" />
+        <title>Rule 90 Cellular Automaton</title>
+
+        <script type="text/javascript">
+            //function to clear any previous results
+            function clear() {
+                for (let row of Array.from(document.body.getElementsByClassName('rows')))
+                    row.remove();
+            }
+
+            //function to display the cells in each row according to sequence
+            function drawSq(cells, row, gen) {
+                //label for each generation
+                let label = row.appendChild(document.createElement('td'));
+                label.innerHTML = 'Gen ' + gen;
+                label.style.fontFamily = 'monospace';
+                label.style.fontSize = '16px';
+                label.className += 'sq';
+                label.style.padding = '0px 50px 0px 25px';
+
+                //draw cells, set up color, size, pos, &c.
+                let divs = [];
+                for (let i = 0; i < cells.length; i++) {
+                    divs[i] = row.appendChild(document.createElement('td'));
+                    divs[i].style.padding = '0';
+                    if (cells[i] == '0')
+                        divs[i].style.backgroundColor = 'rgb(255, 255, 255)';
+                    else
+                        divs[i].style.backgroundColor = 'rgb(0, 0, 0)';
+                    divs[i].style.float = 'left';
+                    divs[i].style.width = ((window.outerWidth - 400) / cells.length > 250 ? 250 : (window.outerWidth - 400) / cells.length) + 'px';
+                    divs[i].style.height = divs[i].style.width;
+                }
+            }
+
+            //function to evolve cellular automaton to next generation
+            function evolve(arrOfCells) {
+                let evolved = [], newCell;
+                for (let cellNum = 0; cellNum < arrOfCells.length; cellNum++) {
+                    newCell = '0';
+                    if (cellNum == 0) {
+                        if (arrOfCells[1] == '1')
+                            newCell = '1';
+                    } else if (cellNum == arrOfCells.length - 1) {
+                        if (arrOfCells[cellNum - 1] == '1')
+                            newCell = '1';
+                    } else {
+                        if (arrOfCells[cellNum - 1] != arrOfCells[cellNum + 1])
+                            newCell = '1';
+                    }
+                    evolved.push(newCell);
+                }
+                return evolved.join('');
+            }
+
+            //main function to evolve cellular automaton
+            function startI(cells, gens) {
+                //data sanitation
+                let valid = /^[0-1]+$/;
+                if (cells === '')
+                    alert('Please enter a cell sequence.');
+                else if (!cells.match(valid))
+                    alert('Please enter a sequence containing only 0s and 1s.');
+                else if (cells.length > 64)
+                    alert('Please enter a sequence with 64 or fewer cells.')
+                else {
+                    clear();
+                    for (let currentGen = 0; currentGen <= gens; currentGen++) {
+                        let r = disp.appendChild(document.createElement('tr'));
+                        r.padding = '0';
+                        r.className += 'rows';
+                        drawSq(cells, r, currentGen); //display cells
+                        cells = evolve(cells.split('')); //evolve for next gen
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <script type="text/javascript">
+            //create wrapper div for input box, input box for cells, input box for number of gens, and description text
+            let description = document.body.appendChild(document.createElement('p')), wrapper = document.body.appendChild(document.createElement('div')), cellInput = wrapper.appendChild(document.createElement('input')), genInput = wrapper.appendChild(document.createElement('input')), submit = wrapper.appendChild(document.createElement('button'));
+
+            //set up body
+            document.body.style.padding = '50px';
+            document.body.style.backgroundColor = 'rgb(223, 223, 223)';
+            
+            //description text
+            description.innerHTML = 'To make things more interesting, a phantom white (dead) cell will be imagined on each end of every line of cells, which will be taken into consideration during the evolution process between generations.'
+            description.style.fontFamily = 'monospace';
+            description.style.fontSize = '16px';
+            description.style.margin = '0px 300px';
+
+            //cell input box
+            wrapper.style.textAlign = 'center';
+            cellInput.placeholder = 'Cell Sequence (0—Dead, 1—Alive)';
+            cellInput.style.fontFamily = 'monospace';
+            cellInput.style.fontSize = '20px';
+            cellInput.style.border = '1px solid #000000';
+            cellInput.style.borderRadius = '5px';
+            cellInput.style.padding = '15px';
+            cellInput.style.margin = '50px';
+            cellInput.style.textAlign = 'center';
+            cellInput.style.width = '30%';
+
+            //gen input box
+            genInput.type = 'number';
+            genInput.min = '0';
+            genInput.placeholder = 'Generations';
+            genInput.style.fontFamily = 'monospace';
+            genInput.style.fontSize = '20px';
+            genInput.style.border = '1px solid #000000';
+            genInput.style.borderRadius = '5px';
+            genInput.style.padding = '15px';
+            genInput.style.margin = '50px';
+            genInput.style.textAlign = 'center';
+            genInput.style.width = '15%';
+
+            //submit inputs button
+            submit.innerHTML = 'Start';
+            submit.style.fontFamily = 'monospace';
+            submit.style.fontSize = '20px';
+            submit.style.backgroundColor = '#000000';
+            submit.style.color = '#FFFFFF';
+            submit.style.border = 'none';
+            submit.style.outline = 'none';
+            submit.style.width = '10%';
+            submit.style.padding = '15px';
+            submit.style.cursor = 'pointer';
+            submit.style.borderRadius = '5px';
+            submit.style.margin = '50px';
+            submit.addEventListener('click', () => startI(cellInput.value, Number(genInput.value)));
+
+            //display area (table) for cells
+            let disp = document.body.appendChild(document.createElement('table'));
+            disp.borderCollapse = 'collapse';
+            disp.cellSpacing = '0';
+        </script>
+    </body>
+</html>

@@ -1,0 +1,86 @@
+/*
+Conway's Game of Life
+CSS for main page
+*/
+
+* {
+    font-family: monospace;
+    font-size: 18px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    margin: 50px;
+    font-weight: normal;
+    font-size: 24px;
+    text-align: center;
+}
+
+div.wrap {
+    margin: 40px;
+    text-align: center;
+}
+
+input {
+    border: 1px solid #000000;
+    border-radius: 5px;
+    padding: 15px;
+    text-align: center;
+    width: 30%;
+    outline: none;
+}
+
+input[type="color"] {
+    padding: 5px;
+    width: 15%;
+    cursor: pointer;
+}
+
+div#button {
+    margin-top: 75px;
+    position: relative;
+}
+
+button#continue {
+    margin: 0 0 50px 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    outline: none;
+    width: 15%;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button#continue:hover {
+    background-color: #222222;
+}
+
+.swal-text {
+    padding: 25px 50px 0px 50px;
+}
+
+.swal-footer {
+    text-align: center;
+    margin: 15px 0px 15px 0px;
+}
+
+table {
+    margin: 0 auto;
+    border-spacing: 1px;
+}
+
+td {
+    padding: 0;
+    border: none;
+}
